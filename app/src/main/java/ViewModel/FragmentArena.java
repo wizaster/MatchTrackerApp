@@ -1,6 +1,7 @@
 package ViewModel;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,7 +53,7 @@ public class FragmentArena extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(rvAdapter);
 
-        //initRecyclerView(rootView);
+
         return rootView;
     }
 
@@ -62,19 +63,13 @@ public class FragmentArena extends Fragment {
         Log.d(TAG, "initValues: nbrows -----------" + nbRows);
         for (int i = 0; i < nbRows; i++) {
             int deckId = dbh.getId(i);
-            String name = dbh.getDeckName(deckId);
-            String imageName = dbh.getImageName(name);
-            deckNames.add(name);
-            deckImages.add(imageName);
+            if(dbh.getFormat(deckId) == 4) {
+                String name = dbh.getDeckName(deckId);
+                String imageName = dbh.getImageName(name);
+                deckNames.add(name);
+                deckImages.add(imageName);
+            }
         }
-        for(int i = 0; i < nbRows; i++){
-            Log.d(TAG, "initValues: " + deckNames.get(i) + "\n");
-        }
-
-    }
-    public void initRecyclerView(View rootView) {
-
-
     }
 
 }

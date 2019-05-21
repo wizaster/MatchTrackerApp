@@ -211,12 +211,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return deckName;
     }
-    public String getFormat(int deckId){
+    public int getFormat(int deckId){
         SQLiteDatabase db =  this.getWritableDatabase();
-        String query = "SELECT Format.Name FROM " + TABLE_FORMAT + " INNER JOIN " + TABLE_DECKS + " ON Format.ID = Decks_Name.Format_ID WHERE " + TABLE_DECKS + ".ID = '" + deckId + "'";
+        String query = "SELECT Format_ID FROM " + TABLE_DECKS + " WHERE ID = '" + deckId + "'";
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
-        String formatName = c.getString(0);
+        int formatName = c.getInt(0);
         db.close();
         return formatName;
     }
