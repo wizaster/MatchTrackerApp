@@ -1,9 +1,7 @@
 package Database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -17,51 +15,50 @@ import static com.emporium.matchtrackerapp.controller.LoginActivity.PREF_KEY_USE
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     //Logcat tag
-    public static final String LOG = "DatabaseHelper";
-    public static final String TAG = "DatabaseHelper";
+    private static final String TAG = "DatabaseHelper";
     //database version
-    public static final int DATABASE_VERSION = 1;
+    public static int DATABASE_VERSION = 1;
     //Database name
-    public static final String DATABASE_NAME = "MatchTracker";
+    private static final String DATABASE_NAME = "MatchTracker";
     //Table names
-    public static final String TABLE_PLAYERS = "Players_List";
-    public static final String TABLE_DECKS = "Decks_Name";
-    public static final String TABLE_ARCHETYPE = "Archetypes";
-    public static final String TABLE_COLORS = "Colors";
-    public static final String TABLE_FORMAT = "Format";
-    public static final String TABLE_GAME_DETAILS = "Game_Details";
-    public static final String TABLE_MATCH = "Matches";
-    public static final String TABLE_USERS_DECK = "Users_Deck";
+    private static final String TABLE_PLAYERS = "Players_List";
+    private static final String TABLE_DECKS = "Decks_Name";
+    private static final String TABLE_ARCHETYPE = "Archetypes";
+    private static final String TABLE_COLORS = "Colors";
+    private static final String TABLE_FORMAT = "Format";
+    private static final String TABLE_GAME_DETAILS = "Game_Details";
+    private static final String TABLE_MATCH = "Matches";
+    private static final String TABLE_USERS_DECK = "Users_Deck";
     //Common column name
-    public static final String KEY_ID = "ID";
-    public static final String KEY_NAME = "Name";
+    private static final String KEY_ID = "ID";
+    private static final String KEY_NAME = "Name";
     //Users_Deck table - coloummn names
-    public static final String KEY_FORMAT_ID = "Format_ID";
-    public static final String KEY_ARCHETYPE_ID = "Archetype_ID";
-    public static final String KEY_COLORS_NAME = "Colors_Name";
-    public static final String KEY_WIN_RATE = "Win_Rate";
-    public static final String KEY_PLAYERS_LIST_ID = "Players_List_ID";
+    private static final String KEY_FORMAT_ID = "Format_ID";
+    private static final String KEY_ARCHETYPE_ID = "Archetype_ID";
+    private static final String KEY_COLORS_NAME = "Colors_Name";
+    private static final String KEY_WIN_RATE = "Win_Rate";
+    private static final String KEY_PLAYERS_LIST_ID = "Players_List_ID";
     //Game_Details - column names
-    public static final String KEY_MATCH_ID = "match_ID";
-    public static final String KEY_GAME_NO = "Game_NO";
-    public static final String KEY_ON_THE_PLAY = "On_The_Play";
-    public static final String KEY_WIN = "Win";
+    private static final String KEY_MATCH_ID = "match_ID";
+    private static final String KEY_GAME_NO = "Game_NO";
+    private static final String KEY_ON_THE_PLAY = "On_The_Play";
+    private static final String KEY_WIN = "Win";
     //Matches table - column names
-    public static final String KEY_ARCHETYPE_1_ID = "Archetype_1_ID";
-    public static final String KEY_ARCHETYPE_2_ID = "Archetype_2_ID";
-    public static final String KEY_SCORE_1 = "Score_1";
-    public static final String KEY_SCORE_2 = "Score_2";
-    public static final String KEY_DRAW = "Draw";
-    public static final String KEY_TOTAL_GAME = "Total_Game";
-    public static final String KEY_WINNER = "Winner";
+    private static final String KEY_ARCHETYPE_1_ID = "Archetype_1_ID";
+    private static final String KEY_ARCHETYPE_2_ID = "Archetype_2_ID";
+    private static final String KEY_SCORE_1 = "Score_1";
+    private static final String KEY_SCORE_2 = "Score_2";
+    private static final String KEY_DRAW = "Draw";
+    private static final String KEY_TOTAL_GAME = "Total_Game";
+    private static final String KEY_WINNER = "Winner";
     //COLORS TABLE - COLUMN NAME
-    public static final String KEY_REFERENCE_IMAGE = "Reference_Image";
+    private static final String KEY_REFERENCE_IMAGE = "Reference_Image";
     //table create statement
     //TABLE_PLAYERS
-    public static final String CREATE_TABLE_PLAYERS = "CREATE TABLE IF NOT EXISTS " + TABLE_PLAYERS
+    private static final String CREATE_TABLE_PLAYERS = "CREATE TABLE IF NOT EXISTS " + TABLE_PLAYERS
             +"(" + KEY_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL, " + KEY_NAME  + " VARCHAR2(50))";
     //TABLE_DECKS
-    public static final String CREATE_TABLE_DECKS = "CREATE TABLE IF NOT EXISTS " + TABLE_DECKS
+    private static final String CREATE_TABLE_DECKS = "CREATE TABLE IF NOT EXISTS " + TABLE_DECKS
             + "(" + KEY_ID +  " INTEGER PRIMARY KEY UNIQUE NOT NULL, "
             + KEY_NAME + " VARCHAR(45), "
             + KEY_FORMAT_ID + " INT, "
@@ -78,20 +75,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + "ON DELETE NO ACTION "
             + "ON UPDATE NO ACTION )";
     //TABLE_ARCHETYPE
-    public static final String CREATE_TABLE_ARCHETYPE = "CREATE TABLE IF NOT EXISTS " +TABLE_ARCHETYPE
+    private static final String CREATE_TABLE_ARCHETYPE = "CREATE TABLE IF NOT EXISTS " +TABLE_ARCHETYPE
             + "(" + KEY_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL, "
             + KEY_NAME + " VARCHAR(45))";
     //TABLE_COLORS
-    public static final String CREATE_TABLE_COLORS = "CREATE TABLE IF NOT EXISTS " +TABLE_COLORS
+    private static final String CREATE_TABLE_COLORS = "CREATE TABLE IF NOT EXISTS " +TABLE_COLORS
             + "(" + KEY_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL, "
             + KEY_NAME + " VARCHAR(45), "
             + KEY_REFERENCE_IMAGE + " VARCHAR2(45))";
     //TABLE_FORMAT
-    public static final String CREATE_TABLE_FORMAT = "CREATE TABLE IF NOT EXISTS " +TABLE_FORMAT
+    private static final String CREATE_TABLE_FORMAT = "CREATE TABLE IF NOT EXISTS " +TABLE_FORMAT
             + "(" + KEY_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL, "
             + KEY_NAME + " VARCHAR(45))";
     //TABLE_GAME_DETAILS
-    public static final String CREATE_TABLE_GAME_DETAILS = "CREATE TABLE IF NOT EXISTS " + TABLE_GAME_DETAILS
+    private static final String CREATE_TABLE_GAME_DETAILS = "CREATE TABLE IF NOT EXISTS " + TABLE_GAME_DETAILS
             + "(" + KEY_MATCH_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL,"
             + KEY_GAME_NO + " NOT NULL, "
             + KEY_ON_THE_PLAY + " TINYINT, "
@@ -102,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + "ON DELETE NO ACTION "
             + "ON UPDATE NO ACTION)";
     //TABLE_MATCH
-    public static final String CREATE_TABLE_MATCH = "CREATE TABLE IF NOT EXISTS " + TABLE_MATCH
+    private static final String CREATE_TABLE_MATCH = "CREATE TABLE IF NOT EXISTS " + TABLE_MATCH
             + "( " + KEY_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL, "
             + KEY_ARCHETYPE_1_ID + " INT, "
             + KEY_ARCHETYPE_2_ID + " INT, "
@@ -122,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + "ON DELETE NO ACTION "
             + "ON UPDATE NO ACTION)";
     //TABLE_USERS_DECK
-    public static final String CREATE_TABLE_USERS_DECK = "CREATE TABLE IF NOT EXISTS " + TABLE_USERS_DECK
+    private static final String CREATE_TABLE_USERS_DECK = "CREATE TABLE IF NOT EXISTS " + TABLE_USERS_DECK
             +"(" + KEY_ID + " INTEGER PRIMARY KEY NOT NULL,"
             + KEY_FORMAT_ID + " VARCHAR(45),"
             + KEY_NAME + " VARCHAR(45),"
@@ -143,17 +140,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper( Context context, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, version);
-    }
-
-    public DatabaseHelper( Context context, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-        super(context, DATABASE_NAME, factory, version, errorHandler);
-    }
-    public DatabaseHelper(Context context){
-        super(context,DATABASE_NAME,null,1);
-    }
-
-    public void onCreate() {
-
     }
 
     @Override
@@ -190,6 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
         int nbRow = c.getCount();
+        c.close();
         db.close();
         return nbRow;
     }
@@ -199,6 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(query, null);
         c.moveToPosition(pos);
         int deckId = c.getInt(0);
+        c.close();
         db.close();
         return deckId;
     }
@@ -208,6 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
         String deckName = c.getString(0);
+        c.close();
         db.close();
         return deckName;
     }
@@ -217,6 +206,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
         int formatInt = c.getInt(0);
+        c.close();
         db.close();
         return formatInt;
     }
@@ -230,6 +220,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c = db.rawQuery(query, null);
         c.moveToFirst();
         String formatName = c.getString(0);
+        c.close();
         db.close();
         return formatName;
     }
@@ -239,6 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
         String deckColor = c.getString(0);
+        c.close();
         db.close();
         return deckColor;
     }
@@ -259,8 +251,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             winRate = ((win*100) / (win + loss));
         }
+        c.close();
         db.close();
-        Log.d(TAG, "getWinRate: win: "+ win + "loss: "+ loss+ "winrate: "+winRate);
         return winRate;
     }
     public int getNbGames(int deckId){
@@ -273,6 +265,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             total += c.getInt(3) + c.getInt(4);
             c.moveToNext();
         }
+        c.close();
         db.close();
         return total;
     }

@@ -1,7 +1,5 @@
 package Model;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.emporium.matchtrackerapp.DeckDetails;
 import com.emporium.matchtrackerappv2.R;
 
 import java.util.ArrayList;
@@ -20,24 +17,19 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
-    public static final String TAG = "RVAdapter";
+    private static final String TAG = "RVAdapter";
     private ArrayList<String> deckImages = new ArrayList<>();
     private ArrayList<DeckId> deckNames = new ArrayList<>();
 
-    private Context context;
-    private RecyclerView.ViewHolder viewHolder;
     private Listener listener;
 
     public RecyclerViewAdapter(){
 
     }
-    public RecyclerViewAdapter(ArrayList<String> deckImages, ArrayList<DeckId> deckNames, Context context, Listener listener){
-        this.context = context;
+    public RecyclerViewAdapter(ArrayList<String> deckImages, ArrayList<DeckId> deckNames, Listener listener){
         this.deckImages = deckImages;
         this.deckNames = deckNames;
         this.listener = listener;
-        Log.d(TAG, "RecyclerViewAdapter: constructor--<>--<>--<>");
-
     }
     public interface Listener{
         void onItemClicked(int id);
@@ -47,14 +39,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_deck_item, viewGroup, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        ArrayList<Integer> colorCombination = getColors(holder, position);
+        ArrayList<Integer> colorCombination = getColors(position);
         int nbColors = colorCombination.size();
         for(int i = 0; i < nbColors; i++){
             switch(i){
@@ -82,8 +73,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final int deckIdClick = (deckNames.get(position)).getId();
 
         //todo deck stats
-        final Context context = getContext();
-
         holder.rvLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +89,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return deckNames.size();
     }
-    public ArrayList<Integer> getColors(ViewHolder holder, final int position){
+
+    private ArrayList<Integer> getColors(final int position){
         ArrayList<Integer> colorCombination = new ArrayList<>();
         int colorLength = (deckImages.get(position)).length();
         String colors = deckImages.get(position);
@@ -129,11 +119,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return colorCombination;
     }
 
-    public Context getContext() {
-        return context;
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image1;
         ImageView image2;
@@ -143,7 +129,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView deckName;
         LinearLayout rvLayout;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             image1 = itemView.findViewById(R.id.color1);
             image2 = itemView.findViewById(R.id.color2);

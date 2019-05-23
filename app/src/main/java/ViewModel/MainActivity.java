@@ -20,6 +20,8 @@ import android.view.Menu;
 
 import com.emporium.matchtrackerappv2.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import Model.FragmentAdapter;
 import Model.RecyclerViewAdapter;
 
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         FragmentAdapter fragmentAdapter = new FragmentAdapter(this, getSupportFragmentManager());
 
         //tablayout and viewPager
@@ -59,10 +61,10 @@ public class MainActivity extends AppCompatActivity
         //set the adapter on the viewpager
         viewPager.setAdapter(fragmentAdapter);
         //give viewPager to tablayout
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout =  findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        RecyclerView recyclerView = (RecyclerView)this.findViewById(R.id.recyclerViewDecks);
+        RecyclerView recyclerView = this.findViewById(R.id.recyclerViewDecks);
 
         RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NotNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

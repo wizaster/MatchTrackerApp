@@ -1,8 +1,11 @@
 package ViewModel;
 
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +16,10 @@ import android.view.ViewGroup;
 
 import com.emporium.matchtrackerappv2.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 import Database.DatabaseHelper;
 import Model.DeckId;
@@ -26,7 +32,6 @@ public class FragmentArena extends Fragment {
 
     public static final String TAG = "Fragment Arena";
 
-    private RecyclerView recyclerView;
     private ArrayList<DeckId> deckNames;
     private ArrayList<String> deckImages;
     private DatabaseHelper dbh;
@@ -39,9 +44,9 @@ public class FragmentArena extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dbh = new DatabaseHelper(getContext(), null, 1);
+        dbh = new DatabaseHelper(getContext(), null, Database.DatabaseHelper.DATABASE_VERSION);
         deckNames = new ArrayList<>();
         deckImages = new ArrayList<>();
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -49,16 +54,18 @@ public class FragmentArena extends Fragment {
         initValues();
 
         RecyclerViewAdapter.Listener listener = new RecyclerViewAdapter.Listener(){
+            @TargetApi(Build.VERSION_CODES.KITKAT)
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onItemClicked(int id) {
                 Intent deckDetails = new Intent(getActivity(), DeckDetails.class);
                 deckDetails.putExtra("deck_id", id);
-                getActivity().startActivity(deckDetails);
+                Objects.requireNonNull(getActivity()).startActivity(deckDetails);
             }
         };
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerViewDecks);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerViewDecks);
 
-        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(deckImages, deckNames, getActivity(), listener);
+        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(deckImages, deckNames, listener);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(rvAdapter);
         Log.d(TAG, "onCreateView: im here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

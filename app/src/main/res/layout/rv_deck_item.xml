@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/deck_name"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintTop_toTopOf="@id/deck_item"
-        android:text="deck1"/>
+        android:text="@string/test"/>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,30 +22,35 @@
         android:layout_height="wrap_content"
         android:id="@+id/color1"
         app:layout_constraintLeft_toLeftOf="@+id/colors"
-        app:layout_constraintTop_toTopOf="@id/colors"/>
+        app:layout_constraintTop_toTopOf="@id/colors"
+        android:contentDescription="@string/manaDesc" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/color2"
         app:layout_constraintLeft_toRightOf="@+id/color1"
-        app:layout_constraintTop_toTopOf="@id/colors"/>
+        app:layout_constraintTop_toTopOf="@id/colors"
+        android:contentDescription="@string/manaDesc"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/color3"
         app:layout_constraintLeft_toRightOf="@+id/color2"
-        app:layout_constraintTop_toTopOf="@id/colors"/>
+        app:layout_constraintTop_toTopOf="@id/colors"
+        android:contentDescription="@string/manaDesc"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/color4"
         app:layout_constraintLeft_toRightOf="@+id/color3"
-        app:layout_constraintTop_toTopOf="@id/colors"/>
+        app:layout_constraintTop_toTopOf="@id/colors"
+        android:contentDescription="@string/manaDesc"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/color5"
         app:layout_constraintLeft_toRightOf="@+id/color4"
-        app:layout_constraintTop_toTopOf="@id/colors"/>
+        app:layout_constraintTop_toTopOf="@id/colors"
+        android:contentDescription="@string/manaDesc"/>
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

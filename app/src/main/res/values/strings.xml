@@ -13,6 +13,10 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    //tests
+    <string name="test">Test</string>
+    <string name="percentTest">77%</string>
+    <string name="manaDesc">manasymbol</string>
 
     //Main Activity
     <string name="mainTitle">My decks</string>
