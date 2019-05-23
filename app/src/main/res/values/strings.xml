@@ -16,6 +16,8 @@
 
     //Main Activity
     <string name="mainTitle">My decks</string>
+    <string name="label_format">Format :</string>
+    <string name="label_game_played"># of game played :</string>
 
     //Formats
     <string name="Format_standard">Standard</string>
@@ -24,10 +26,18 @@
     <string name="Format_arena">Arena</string>
     <string name="Format_limited">Limited</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_deck_details">DeckDetails</string>
-    <string name="title_home">Home</string>
+    //Deck Details
+    <string name="title_activity_deck_details">Deck statistics</string>
+    <string name="title_home">Deck name</string>
+    <string name="deck_details_vs">Versus :</string>
+    //archetypes
+    <string name="aggro_vs">Aggro :</string>
+    <string name="midrange_vs">Midrange :</string>
+    <string name="control_vs">Control :</string>
+    <string name="tempo_vs">Tempo :</string>
+    <string name="big_mana_vs">Big Mana :</string>
+    <string name="combo_vs">Combo :</string>
+
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 </resources>

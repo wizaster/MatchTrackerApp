@@ -1,6 +1,7 @@
 package ViewModel;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.emporium.matchtrackerappv2.R;
 import java.util.ArrayList;
 
 import Database.DatabaseHelper;
+import Model.DeckId;
 import Model.RecyclerViewAdapter;
 
 /**
@@ -27,7 +29,7 @@ public static final String TAG = "Fragment Standard";
 
 
     private RecyclerView recyclerView;
-    private ArrayList<String> deckNames;
+    private ArrayList<DeckId> deckNames;
     private ArrayList<String> deckImages;
     private DatabaseHelper dbh;
 
@@ -48,11 +50,21 @@ public static final String TAG = "Fragment Standard";
 
         initValues();
 
+        RecyclerViewAdapter.Listener listener = new RecyclerViewAdapter.Listener(){
+            @Override
+            public void onItemClicked(int id) {
+                Intent deckDetails = new Intent(getActivity(), DeckDetails.class);
+                deckDetails.putExtra("deck_id", id);
+                getActivity().startActivity(deckDetails);
+            }
+        };
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerViewDecks);
 
-        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(deckImages, deckNames, getActivity());
+        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(deckImages, deckNames, getActivity(), listener);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(rvAdapter);
+
+
 
         return rootView;
     }
@@ -66,7 +78,7 @@ public static final String TAG = "Fragment Standard";
             if(dbh.getFormat(deckId) == 2) {
                 String name = dbh.getDeckName(deckId);
                 String imageName = dbh.getImageName(name);
-                deckNames.add(name);
+                deckNames.add(new DeckId(deckId, name));
                 deckImages.add(imageName);
             }
         }

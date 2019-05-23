@@ -216,7 +216,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT Format_ID FROM " + TABLE_DECKS + " WHERE ID = '" + deckId + "'";
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
-        int formatName = c.getInt(0);
+        int formatInt = c.getInt(0);
+        db.close();
+        return formatInt;
+    }
+    public String getFormatName(int deckId){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        String query = "SELECT Format_ID FROM " + TABLE_DECKS + " WHERE ID = '" + deckId + "'";
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        int formatInt = c.getInt(0);
+        query = "SELECT Name FROM " + TABLE_FORMAT + " WHERE ID = '" + formatInt + "'";
+        c = db.rawQuery(query, null);
+        c.moveToFirst();
+        String formatName = c.getString(0);
         db.close();
         return formatName;
     }
@@ -228,5 +241,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String deckColor = c.getString(0);
         db.close();
         return deckColor;
+    }
+    public double getWinRate(int deckId){
+
+        SQLiteDatabase db =  this.getWritableDatabase();
+        double win = 0;
+        double loss = 0;
+        double winRate = 0;
+        String query = "SELECT * FROM " + TABLE_MATCH + " WHERE " + KEY_ARCHETYPE_1_ID + " = '" + deckId + "'";
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        if(c.getCount() > 0){
+            while(!c.isAfterLast()){
+                win += c.getInt(3);
+                loss += c.getInt(4);
+                c.moveToNext();
+            }
+            winRate = ((win*100) / (win + loss));
+        }
+        db.close();
+        Log.d(TAG, "getWinRate: win: "+ win + "loss: "+ loss+ "winrate: "+winRate);
+        return winRate;
+    }
+    public int getNbGames(int deckId){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        int total = 0;
+        String query = "SELECT * FROM " + TABLE_MATCH + " WHERE " + KEY_ARCHETYPE_1_ID + " = '" + deckId + "'";
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        for(int i = 0; i < c.getCount(); i++){
+            total += c.getInt(3) + c.getInt(4);
+            c.moveToNext();
+        }
+        db.close();
+        return total;
     }
 }

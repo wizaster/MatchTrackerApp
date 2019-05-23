@@ -16,6 +16,7 @@ import com.emporium.matchtrackerappv2.R;
 import java.util.ArrayList;
 
 import Database.DatabaseHelper;
+import Model.DeckId;
 import Model.RecyclerViewAdapter;
 
 /**
@@ -26,7 +27,7 @@ public class FragmentArena extends Fragment {
     public static final String TAG = "Fragment Arena";
 
     private RecyclerView recyclerView;
-    private ArrayList<String> deckNames;
+    private ArrayList<DeckId> deckNames;
     private ArrayList<String> deckImages;
     private DatabaseHelper dbh;
 
@@ -47,11 +48,20 @@ public class FragmentArena extends Fragment {
 
         initValues();
 
+        RecyclerViewAdapter.Listener listener = new RecyclerViewAdapter.Listener(){
+            @Override
+            public void onItemClicked(int id) {
+                Intent deckDetails = new Intent(getActivity(), DeckDetails.class);
+                deckDetails.putExtra("deck_id", id);
+                getActivity().startActivity(deckDetails);
+            }
+        };
         recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerViewDecks);
 
-        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(deckImages, deckNames, getActivity());
+        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(deckImages, deckNames, getActivity(), listener);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(rvAdapter);
+        Log.d(TAG, "onCreateView: im here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 
         return rootView;
@@ -66,7 +76,7 @@ public class FragmentArena extends Fragment {
             if(dbh.getFormat(deckId) == 4) {
                 String name = dbh.getDeckName(deckId);
                 String imageName = dbh.getImageName(name);
-                deckNames.add(name);
+                deckNames.add(new DeckId(deckId, name));
                 deckImages.add(imageName);
             }
         }

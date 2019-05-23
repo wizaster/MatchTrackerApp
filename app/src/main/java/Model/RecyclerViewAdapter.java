@@ -3,7 +3,6 @@ package Model;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,26 +17,30 @@ import com.emporium.matchtrackerappv2.R;
 
 import java.util.ArrayList;
 
-import static android.support.v4.content.ContextCompat.startActivity;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     public static final String TAG = "RVAdapter";
     private ArrayList<String> deckImages = new ArrayList<>();
-    private ArrayList<String> deckNames = new ArrayList<>();
+    private ArrayList<DeckId> deckNames = new ArrayList<>();
 
     private Context context;
     private RecyclerView.ViewHolder viewHolder;
+    private Listener listener;
 
     public RecyclerViewAdapter(){
 
     }
-    public RecyclerViewAdapter(ArrayList<String> deckImages, ArrayList<String> deckNames, Context context){
+    public RecyclerViewAdapter(ArrayList<String> deckImages, ArrayList<DeckId> deckNames, Context context, Listener listener){
         this.context = context;
         this.deckImages = deckImages;
         this.deckNames = deckNames;
+        this.listener = listener;
         Log.d(TAG, "RecyclerViewAdapter: constructor--<>--<>--<>");
 
+    }
+    public interface Listener{
+        void onItemClicked(int id);
     }
 
     @NonNull
@@ -74,15 +77,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
 
-        holder.deckName.setText(deckNames.get(position));
+        holder.deckName.setText((deckNames.get(position)).getName());
         holder.rvLayout.forceLayout();
+        final int deckIdClick = (deckNames.get(position)).getId();
+
         //todo deck stats
         final Context context = getContext();
+
         holder.rvLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent deckDetails = new Intent(holder.rvLayout.getContext(), DeckDetails.class);
-                holder.rvLayout.getContext().startActivity(deckDetails);
+                Log.d(TAG, "onBindViewHolder: " + deckIdClick);
+                listener.onItemClicked(deckIdClick);
             }
         });
 
