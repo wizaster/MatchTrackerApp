@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.DecimalFormat;
+
 /* todo refresh imports
 import model.Format;
 
@@ -32,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Common column name
     private static final String KEY_ID = "ID";
     private static final String KEY_NAME = "Name";
-    //Users_Deck table - coloummn names
+    //Users_Deck table - column names
     private static final String KEY_FORMAT_ID = "Format_ID";
     private static final String KEY_ARCHETYPE_ID = "Archetype_ID";
     private static final String KEY_COLORS_NAME = "Colors_Name";
@@ -268,5 +270,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
         db.close();
         return total;
+    }
+    public String getWinRateByArch(int deckId, int archetype){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        double win = 0;
+        double loss = 0;
+        double winRate = 0;
+        String query = "SELECT Matches.Score_1, Matches.Score_2, Decks_Name.Archetype_ID, Matches.Archetype_2_ID, Matches.Archetype_1_ID FROM Matches LEFT JOIN "
+                + "Decks_Name ON Matches.Archetype_2_ID = Decks_name.ID WHERE Matches.Archetype_1_ID = '" + deckId + "'";
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        if(c.getCount() > 0){
+            while(!c.isAfterLast()){
+                Log.d(TAG, "getWinRateByArch: " + c.getInt(2));
+                if(c.getInt(2) == archetype){
+                    win += c.getInt(0);
+                    loss += c.getInt(1);
+                }
+
+                c.moveToNext();
+            }
+            winRate = ((win*100) / (win + loss));
+        }
+        Log.d(TAG, "getWinRateByArch: " + archetype + ":" + win + " / " + loss );
+        c.close();
+        db.close();
+        return new DecimalFormat("##.##").format(winRate) + "%";
     }
 }

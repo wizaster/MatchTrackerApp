@@ -47,16 +47,28 @@ public class DeckDetails extends AppCompatActivity {
         deckNameTitle = (TextView)findViewById(R.id.deck_detail_name);
         winRate = (TextView)findViewById(R.id.winRate_overall);
         nbGame = (TextView)findViewById(R.id.deck_detail_game_played);
+        aggroWr = (TextView)findViewById(R.id.aggro_wr);
+        tempoWr = (TextView)findViewById(R.id.tempo_wr);
+        controlWr = (TextView)findViewById(R.id.control_wr);
+        midrangeWr = (TextView)findViewById(R.id.midrange_wr);
+        comboWr = (TextView)findViewById(R.id.combo_wr);
+        bigManaWr = (TextView)findViewById(R.id.big_mana_wr);
 
         initValues(deckId);
 
     }
 
     public void initValues(int id){
-            deckNameTitle.setText(dbh.getDeckName(id));
-            deckFormat.setText(dbh.getFormatName(id));
-            winRate.setText(Double.toString(dbh.getWinRate(id)) + "%");
-            nbGame.setText(Integer.toString(dbh.getNbGames(id)));
+        deckNameTitle.setText(dbh.getDeckName(id));
+        deckFormat.setText(dbh.getFormatName(id));
+        winRate.setText(Double.toString(dbh.getWinRate(id)) + "%");
+        nbGame.setText(Integer.toString(dbh.getNbGames(id)));
+        aggroWr.setText(dbh.getWinRateByArch(id, 1));
+        tempoWr.setText(dbh.getWinRateByArch(id, 3));
+        controlWr.setText(dbh.getWinRateByArch(id, 2));
+        midrangeWr.setText(dbh.getWinRateByArch(id, 4));
+        comboWr.setText(dbh.getWinRateByArch(id, 6));
+        bigManaWr.setText(dbh.getWinRateByArch(id, 5));
 
     }
 }
