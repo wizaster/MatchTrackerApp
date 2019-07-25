@@ -34,6 +34,8 @@
     <string name="title_activity_deck_details">Deck statistics</string>
     <string name="title_home">Deck name</string>
     <string name="deck_details_vs">Versus :</string>
+    <string name="btn_add_match">Add a match</string>
+    <string name="btn_deck_choice">Choose deck</string>
     //archetypes
     <string name="aggro_vs">Aggro :</string>
     <string name="midrange_vs">Midrange :</string>

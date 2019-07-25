@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.emporium.matchtrackerappv2.R;
@@ -22,6 +24,7 @@ public class DeckDetails extends AppCompatActivity {
     ViewPager viewPager;
     RecyclerView recyclerView;
     TextView deckNameTitle, deckFormat, winRate, nbGame, aggroWr, midrangeWr, controlWr, tempoWr, bigManaWr, comboWr;
+    Button btnAddMatch, btnHistory, btnChooseOppDeck;
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -29,7 +32,8 @@ public class DeckDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: DeckDetails--------");
         setContentView(R.layout.activity_deck_details);
-        viewPager = (ViewPager)findViewById(R.id.deck_details_viewpager);
+        //viewPager = (ViewPager)findViewById(R.id.deck_details_viewpager);
+        viewPager = new ViewPager(this);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerViewDecksDetails);
         dbh = new DatabaseHelper(getApplicationContext(), null, 1);
         RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter();
@@ -53,6 +57,9 @@ public class DeckDetails extends AppCompatActivity {
         midrangeWr = (TextView)findViewById(R.id.midrange_wr);
         comboWr = (TextView)findViewById(R.id.combo_wr);
         bigManaWr = (TextView)findViewById(R.id.big_mana_wr);
+        btnAddMatch = (Button)findViewById(R.id.btn_add_the_match);
+        btnHistory = (Button)findViewById(R.id.btn_history);
+        btnChooseOppDeck = (Button)findViewById(R.id.btn_deck_choice);
 
         initValues(deckId);
 
@@ -69,6 +76,28 @@ public class DeckDetails extends AppCompatActivity {
         midrangeWr.setText(dbh.getWinRateByArch(id, 4));
         comboWr.setText(dbh.getWinRateByArch(id, 6));
         bigManaWr.setText(dbh.getWinRateByArch(id, 5));
+        btnAddMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnChooseOppDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startOppDeck();
+            }
+        });
+
+    }
+    public void startOppDeck(){
+        Intent oppDeck = new Intent(this, OpponentDeck.class);
+        startActivity(oppDeck);
     }
 }
