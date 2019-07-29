@@ -26,20 +26,21 @@
         android:layout_marginTop="20dp"
         android:text="New deck"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spn_choose_deck" />
+        app:layout_constraintTop_toBottomOf="@id/rb_existing_deck" />
 
     <Spinner
         android:id="@+id/spn_choose_deck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rb_existing_deck" />
+        tools:layout_editor_absoluteY="72dp"
+        app:layout_constraintTop_toBottomOf="@id/rb_new_deck"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/new_deck_name"
@@ -47,11 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rb_new_deck">
+        app:layout_constraintTop_toBottomOf="@+id/spn_choose_deck">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/new_deck_name_input"
@@ -66,7 +65,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="20dp"
-        android:text="TextView"
+        android:text="check the colors"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spn_new_deck_archetype" />
 
@@ -171,5 +170,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btn_opp_deck_add"
         app:layout_constraintTop_toBottomOf="@+id/cbx_black" />
+
 
 </android.support.constraint.ConstraintLayout>

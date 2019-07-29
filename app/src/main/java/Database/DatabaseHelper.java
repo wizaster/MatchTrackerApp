@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /* todo refresh imports
 import model.Format;
@@ -225,6 +226,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
         db.close();
         return formatName;
+    }
+    public ArrayList<String> getFormatsName(){
+        ArrayList<String> formats = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT Name FROM " + TABLE_FORMAT;
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            formats.add(c.getString(0));
+            c.move(1);
+        }
+        return formats;
+    }
+    public ArrayList<String> getArchetypesName(){
+        ArrayList<String> archetypes = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT Name FROM " + TABLE_ARCHETYPE;
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            archetypes.add(c.getString(0));
+            c.move(1);
+        }
+        return archetypes;
     }
     public String getImageName(String deckName){
         SQLiteDatabase db =  this.getWritableDatabase();
