@@ -1,4 +1,4 @@
-package ViewModel;
+package viewmodel;
 
 
 import android.content.Intent;
@@ -20,9 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import Database.DatabaseHelper;
-import Model.DeckId;
-import Model.RecyclerViewAdapter;
+import database.DatabaseHelper;
+import model.DeckId;
+import model.RecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

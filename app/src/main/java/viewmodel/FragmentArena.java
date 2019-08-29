@@ -1,4 +1,4 @@
-package ViewModel;
+package viewmodel;
 
 
 import android.annotation.TargetApi;
@@ -21,9 +21,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import Database.DatabaseHelper;
-import Model.DeckId;
-import Model.RecyclerViewAdapter;
+import database.DatabaseHelper;
+import model.DeckId;
+import model.RecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +46,7 @@ public class FragmentArena extends Fragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dbh = new DatabaseHelper(getContext(), null, Database.DatabaseHelper.DATABASE_VERSION);
+        dbh = new DatabaseHelper(getContext(), null, database.DatabaseHelper.DATABASE_VERSION);
         deckNames = new ArrayList<>();
         deckImages = new ArrayList<>();
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);

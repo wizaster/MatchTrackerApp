@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -8,9 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.emporium.matchtrackerappv2.R;
 
-import ViewModel.FragmentArena;
-import ViewModel.FragmentModern;
-import ViewModel.FragmentStandard;
+import viewmodel.FragmentArena;
+import viewmodel.FragmentModern;
+import viewmodel.FragmentStandard;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
 

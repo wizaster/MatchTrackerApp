@@ -1,4 +1,4 @@
-package ViewModel;
+package viewmodel;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,8 +22,8 @@ import com.emporium.matchtrackerappv2.R;
 
 import org.jetbrains.annotations.NotNull;
 
-import Model.FragmentAdapter;
-import Model.RecyclerViewAdapter;
+import model.FragmentAdapter;
+import model.RecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{

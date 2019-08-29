@@ -1,10 +1,9 @@
-package ViewModel;
+package viewmodel;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +12,8 @@ import android.widget.TextView;
 
 import com.emporium.matchtrackerappv2.R;
 
-import Database.DatabaseHelper;
-import Model.RecyclerViewAdapter;
+import database.DatabaseHelper;
+import model.RecyclerViewAdapter;
 
 public class DeckDetails extends AppCompatActivity {
     //todo onstop, onresume...

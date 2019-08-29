@@ -10,21 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="ViewModel.DeckDetails"
+            android:name="viewmodel.DeckDetails"
             android:label="@string/title_activity_deck_details">
         </activity>
         <activity
-            android:name="ViewModel.MainActivity"
+            android:name="viewmodel.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="ViewModel.OpponentDeck"
+            android:name="viewmodel.OpponentDeck"
             android:label="Opponent Deck">
         </activity>
     </application>
